@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 public interface UsuarioClient {
 
     @GetMapping
-    UsuarioResponseDTO buscaUsuarioPorEmail(@RequestParam("email") String email, @RequestHeader("Authorization") String token);
+    UsuarioResponseDTO buscaUsuarioPorEmail(@RequestParam("email") String email,
+                                            @RequestHeader("Authorization") String token);
 
     @PostMapping
     UsuarioResponseDTO salvaUsuario(@RequestBody UsuarioRequestDTO usuarioRequestDTO);
@@ -23,8 +24,8 @@ public interface UsuarioClient {
     @PostMapping("/login")
     String login(@RequestBody LoginRequestDTO loginRequestDTO);
 
-    @DeleteMapping("/{email}")
-    void deletarUsuarioPorEmail(@PathVariable String email, @RequestHeader("Authorization") String token);
+    @DeleteMapping
+    void deletarUsuarioPorEmail(@RequestParam("email") String email, @RequestHeader("Authorization") String token);
 
     @PutMapping
     UsuarioResponseDTO atualizaDadosUsuario(@RequestBody UsuarioRequestDTO usuarioRequestDTO,

@@ -54,12 +54,12 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.buscarUsuarioPorEmail(email, token));
     }
 
-    @DeleteMapping("/{email}")
+    @DeleteMapping
     @Operation(summary = "Deletar Usuário por ID", description = "Deletar usuário")
     @ApiResponse(responseCode = "200", description = "Usuário deletado com sucesso")
     @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
-    public ResponseEntity<Void> deletarUsuarioPorEmail(@PathVariable String email,
+    public ResponseEntity<Void> deletarUsuarioPorEmail(@RequestParam("email") String email,
                                                        @RequestHeader("Authorization") String token) {
         usuarioService.deletarUsuarioPorEmail(email, token);
         return ResponseEntity.ok().build();

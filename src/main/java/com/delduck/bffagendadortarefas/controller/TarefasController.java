@@ -52,27 +52,28 @@ public class TarefasController {
             description = "Buscar tarefas cadastradas por usuário")
     @ApiResponse(responseCode = "200", description = "Tarefas encontradas")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
-    public ResponseEntity<List<TarefaResponseDTO>> buscaListaTarefasPorPeriodo(@RequestHeader(name = "Authorization", required = false) String token) {
+    public ResponseEntity<List<TarefaResponseDTO>> buscaListaTarefasPorEmail(@RequestHeader(name = "Authorization",
+            required = false) String token) {
         return ResponseEntity.ok(tarefasService.buscaTarefasAgendadasPorEmail(token));
     }
 
-    @DeleteMapping("/{idTarefa}")
+    @DeleteMapping
     @Operation(summary = "Deletar tarefas por ID", description = "Deletar tarefas cadastradas por ID")
     @ApiResponse(responseCode = "200", description = "Tarefas deletadas com sucesso")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
-    public ResponseEntity<Void> deletarTarefaPorId(@PathVariable String idTarefa,
+    public ResponseEntity<Void> deletarTarefaPorId(@RequestParam("idTarefa") String idTarefa,
                                                    @RequestHeader(name = "Authorization", required = false) String token) {
         tarefasService.deletaTarefaPorId(idTarefa, token);
 
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{idTarefa}")
+    @PatchMapping
     @Operation(summary = "Altera status da tarefa", description = "Altera status da tarefa cadastrada")
     @ApiResponse(responseCode = "200", description = "Status da tarefa alterada com sucesso")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
-    public ResponseEntity<TarefaResponseDTO> alterarStatusNotificacao(@RequestParam StatusNotificacaoEnum status,
-                                                                      @PathVariable String idTarefa,
+    public ResponseEntity<TarefaResponseDTO> alterarStatusNotificacao(@RequestParam("status") StatusNotificacaoEnum status,
+                                                                      @RequestParam("idTarefa") String idTarefa,
                                                                       @RequestHeader(name = "Authorization", required = false) String token) {
         return ResponseEntity.ok(tarefasService.alteraStatus(status, idTarefa, token));
     }
@@ -82,7 +83,7 @@ public class TarefasController {
     @ApiResponse(responseCode = "200", description = "Tarefas alteradas com sucesso")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
     public ResponseEntity<TarefaResponseDTO> updateTarefas(@RequestBody TarefaRequestDTO tarefaRequestDTO,
-                                                           @RequestParam String id,
+                                                           @RequestParam("id") String id,
                                                            @RequestHeader(name = "Authorization", required = false) String token) {
         return ResponseEntity.ok(tarefasService.updateTarefas(tarefaRequestDTO, id, token));
     }

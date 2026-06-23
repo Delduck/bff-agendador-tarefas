@@ -28,18 +28,18 @@ public interface TarefaClient {
     @GetMapping
     List<TarefaResponseDTO> buscaListaTarefasPorEmail(@RequestHeader("Authorization") String token);
 
-    @DeleteMapping("/{idTarefa}")
-    void deletarTarefaPorId(@PathVariable String idTarefa,
+    @DeleteMapping
+    void deletarTarefaPorId(@RequestParam("idTarefa") String idTarefa,
                             @RequestHeader("Authorization") String token);
 
-    @PatchMapping("/{idTarefa}")
-    TarefaResponseDTO alterarStatusNotificacao(@RequestParam StatusNotificacaoEnum status,
-                                               @PathVariable String idTarefa,
+    @PatchMapping
+    TarefaResponseDTO alterarStatusNotificacao(@RequestParam("status") StatusNotificacaoEnum status,
+                                               @RequestParam("idTarefa") String idTarefa,
                                                @RequestHeader("Authorization") String token);
 
     @PutMapping
     TarefaResponseDTO updateTarefas(@RequestBody TarefaRequestDTO tarefaRequestDTO,
-                                    @RequestParam String id,
+                                    @RequestParam("id") String id,
                                     @RequestHeader("Authorization") String token);
 
 }
