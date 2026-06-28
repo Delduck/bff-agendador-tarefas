@@ -39,7 +39,7 @@ public interface TarefaClient {
 
     @PutMapping
     TarefaResponseDTO updateTarefas(@RequestBody TarefaRequestDTO tarefaRequestDTO,
-                                    @RequestParam("id") String id,
+                                    @RequestParam("idTarefa") String idTarefa,
                                     @RequestHeader("Authorization") String token);
 
 }

@@ -6,6 +6,7 @@ import com.delduck.bffagendadortarefas.business.enums.StatusNotificacaoEnum;
 import com.delduck.bffagendadortarefas.infrastructure.client.UsuarioClient;
 import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -32,7 +33,7 @@ public class CronService {
     @Scheduled(cron = "${cron.horario}")
     public void buscarTarefasProximaHora() {
 
-        String token = login(converterParaRequestDTO());
+        String token = login(converterParaLoginRequestDTO());
         log.info("Iniciando a busca de tarefas");
 
         LocalDateTime horaAtual = LocalDateTime.now();
@@ -56,11 +57,10 @@ public class CronService {
         return usuarioService.loginUsuario(loginRequestDTO);
     }
 
-    public LoginRequestDTO converterParaRequestDTO() {
+    public LoginRequestDTO converterParaLoginRequestDTO() {
         return LoginRequestDTO.builder()
                 .email(email)
                 .senha(senha)
                 .build();
     }
-
 }

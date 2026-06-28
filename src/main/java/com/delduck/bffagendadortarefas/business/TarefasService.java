@@ -38,8 +38,8 @@ public class TarefasService {
         return tarefaClient.alterarStatusNotificacao(status, id, token);
     }
 
-    public TarefaResponseDTO updateTarefas(TarefaRequestDTO tarefaRequestDTO, String id, String token) {
-        return tarefaClient.updateTarefas(tarefaRequestDTO, id, token);
+    public TarefaResponseDTO updateTarefas(TarefaRequestDTO tarefaRequestDTO, String idTarefa, String token) {
+        return tarefaClient.updateTarefas(tarefaRequestDTO, idTarefa, token);
     }
 
 

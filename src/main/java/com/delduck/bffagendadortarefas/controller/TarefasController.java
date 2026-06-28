@@ -39,6 +39,7 @@ public class TarefasController {
     @Operation(summary = "Buscar lista de tarefas por Periodo", description = "Buscar tarefas cadastradas por período")
     @ApiResponse(responseCode = "200", description = "Tarefas encontradas")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    @ApiResponse(responseCode = "401", description = "Usuário não autorizado")
     public ResponseEntity<List<TarefaResponseDTO>> buscaListaTarefasPorPeriodo(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal,
@@ -52,6 +53,8 @@ public class TarefasController {
             description = "Buscar tarefas cadastradas por usuário")
     @ApiResponse(responseCode = "200", description = "Tarefas encontradas")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    @ApiResponse(responseCode = "403", description = "Email não encontrado")
+    @ApiResponse(responseCode = "401", description = "Usuário não autorizado")
     public ResponseEntity<List<TarefaResponseDTO>> buscaListaTarefasPorEmail(@RequestHeader(name = "Authorization",
             required = false) String token) {
         return ResponseEntity.ok(tarefasService.buscaTarefasAgendadasPorEmail(token));
@@ -61,6 +64,8 @@ public class TarefasController {
     @Operation(summary = "Deletar tarefas por ID", description = "Deletar tarefas cadastradas por ID")
     @ApiResponse(responseCode = "200", description = "Tarefas deletadas com sucesso")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    @ApiResponse(responseCode = "403", description = "Tarefa ID não encontrado")
+    @ApiResponse(responseCode = "401", description = "Usuário não autorizado")
     public ResponseEntity<Void> deletarTarefaPorId(@RequestParam("idTarefa") String idTarefa,
                                                    @RequestHeader(name = "Authorization", required = false) String token) {
         tarefasService.deletaTarefaPorId(idTarefa, token);
@@ -72,6 +77,8 @@ public class TarefasController {
     @Operation(summary = "Altera status da tarefa", description = "Altera status da tarefa cadastrada")
     @ApiResponse(responseCode = "200", description = "Status da tarefa alterada com sucesso")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    @ApiResponse(responseCode = "403", description = "Tarefa ID não encontrado")
+    @ApiResponse(responseCode = "401", description = "Usuário não autorizado")
     public ResponseEntity<TarefaResponseDTO> alterarStatusNotificacao(@RequestParam("status") StatusNotificacaoEnum status,
                                                                       @RequestParam("idTarefa") String idTarefa,
                                                                       @RequestHeader(name = "Authorization", required = false) String token) {
@@ -82,10 +89,12 @@ public class TarefasController {
     @Operation(summary = "Altera dados de tarefas", description = "Altera dados das tarefas cadastradas")
     @ApiResponse(responseCode = "200", description = "Tarefas alteradas com sucesso")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    @ApiResponse(responseCode = "403", description = "Tarefa ID não encontrado")
+    @ApiResponse(responseCode = "401", description = "Usuário não autorizado")
     public ResponseEntity<TarefaResponseDTO> updateTarefas(@RequestBody TarefaRequestDTO tarefaRequestDTO,
-                                                           @RequestParam("id") String id,
+                                                           @RequestParam("idTarefa") String idTarefa,
                                                            @RequestHeader(name = "Authorization", required = false) String token) {
-        return ResponseEntity.ok(tarefasService.updateTarefas(tarefaRequestDTO, id, token));
+        return ResponseEntity.ok(tarefasService.updateTarefas(tarefaRequestDTO, idTarefa, token));
     }
 
 }

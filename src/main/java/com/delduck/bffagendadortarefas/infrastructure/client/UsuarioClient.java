@@ -33,12 +33,12 @@ public interface UsuarioClient {
 
     @PutMapping("/endereco")
     EnderecoResponseDTO atualizaEndereco(@RequestBody EnderecoRequestDTO enderecoRequestDTO,
-                                         @RequestParam("id") Long id,
+                                         @RequestParam("idEndereco") Long idEndereco,
                                          @RequestHeader("Authorization") String token);
 
     @PutMapping("/telefone")
     TelefoneResponseDTO atualizaTelefone(@RequestBody TelefoneRequestDTO telefoneRequestDTO,
-                                         @RequestParam("id") Long id,
+                                         @RequestParam("idTelefone") Long idTelefone,
                                          @RequestHeader("Authorization") String token);
 
     @PostMapping("/endereco")
